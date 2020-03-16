@@ -1,0 +1,83 @@
+{
+  "name": "react-clui",
+  "version": "1.4.1",
+  "description": "React component that renders a terminal emulator",
+  "main": "lib/react-clui.js",
+  "scripts": {
+    "build": "webpack --mode development && webpack --mode production",
+    "dev": "webpack --progress --colors --watch --mode development",
+    "test": "cross-env NODE_PATH=./src mocha --require @babel/register --colors './test/**/*.spec.js*'",
+    "storybook": "start-storybook -p 6006",
+    "artifact:test-coverage": "nyc --reporter=html yarn run test",
+    "artifact:storybook": "build-storybook -c .storybook -o .storybook_output",
+    "build-storybook": "build-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/radio-alice/react-clui.git"
+  },
+  "keywords": [
+    "terminal",
+    "emulation"
+  ],
+  "author": "Zach Sherman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/radio-alice/react-clui/issues"
+  },
+  "homepage": "https://github.com/radio-alice/react-clui",
+  "nyc": {
+    "exclude": [
+      "test",
+      "lib",
+      "types"
+    ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "@storybook/addon-actions": "^5.3.14",
+    "@storybook/addon-links": "^5.3.14",
+    "@storybook/addons": "^5.3.14",
+    "@storybook/react": "^5.3.14",
+    "@types/immutable": "^3.8.7",
+    "@types/react": "^16.9.23",
+    "@types/styled-components": "^5.0.1",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.1.2",
+    "eslint-plugin-react": "^7.13.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.11",
+    "yargs": "^13.2.4"
+  },
+  "dependencies": {
+    "@replit/clui-input": "^0.0.9",
+    "styled-components": "^4.3.2",
+    "styled-theming": "^2.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.8.0"
+  },
+  "files": [
+    "lib/react-clui.js",
+    "lib/react-clui.min.js"
+  ]
+}
