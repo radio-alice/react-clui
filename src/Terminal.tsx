@@ -66,9 +66,8 @@ const Terminal = ({
         break
       case 'Tab':
         e.preventDefault()
-        // replace below with useCluiInput hook
-        // const autoCompletedStr = emulator.autocomplete(emulatorState, initInput)
-        // setInput(autoCompletedStr)
+        if (inputState.options[0])
+          updateInput({ value: inputState.options[0].value + ' ' })
         break
     }
   }
@@ -80,7 +79,6 @@ const Terminal = ({
       value: currentTarget.value,
       index: currentTarget.selectionStart || 0
     })
-    console.log(inputState)
   }
   return (
     <ThemeProvider theme={theme}>
