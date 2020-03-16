@@ -35,10 +35,37 @@ export default () => {
         content: `${commandStr} is not a valid command`
       }
     })
+
+  const [historyIndex, setHistoryIndex] = React.useState(0)
+  type historyDirection = 'previous' | 'next'
+  const adjacentCommand = (direction: historyDirection, index: number) => {
+    switch (direction) {
+      case 'next':
+        for (let i = Math.max(index - 1, 0); i >= 0; i--) {
+          if (terminalState.history[i].type === 'SUBMITTED_COMMAND') {
+            setHistoryIndex(i)
+            return terminalState.history[i].content
+          }
+        }
+        setHistoryIndex(0)
+        return ''
+      case 'previous':
+        for (let i = index + 1; i < terminalState.history.length; i++) {
+          if (terminalState.history[i].type === 'SUBMITTED_COMMAND') {
+            setHistoryIndex(i)
+            return terminalState.history[i].content
+          }
+        }
+        break
+    }
+  }
   return {
     terminalState,
     terminalDispatch,
     printInvalidCommandError,
-    enterCommand
+    enterCommand,
+    adjacentCommand,
+    historyIndex,
+    setHistoryIndex
   }
 }
