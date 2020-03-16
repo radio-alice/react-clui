@@ -10,7 +10,7 @@ import { initCommands } from './Commands'
 import useTerminalHistory from './useTerminalHistory'
 
 const Terminal = ({
-  inputStr = '',
+  initInput = '',
   promptSymbol = '$',
   terminalId = 'terminal01',
   theme = defaultTheme
@@ -31,8 +31,8 @@ const Terminal = ({
   // 'commands' changes
   const [inputState, updateInput] = useCluiInput({
     command: commands,
-    value: inputStr,
-    index: inputStr.length
+    value: initInput,
+    index: initInput.length
   })
   const containerRef = React.useRef(null)
 
@@ -67,7 +67,7 @@ const Terminal = ({
       case 'Tab':
         e.preventDefault()
         // replace below with useCluiInput hook
-        // const autoCompletedStr = emulator.autocomplete(emulatorState, inputStr)
+        // const autoCompletedStr = emulator.autocomplete(emulatorState, initInput)
         // setInput(autoCompletedStr)
         break
     }
@@ -80,6 +80,7 @@ const Terminal = ({
       value: currentTarget.value,
       index: currentTarget.selectionStart || 0
     })
+    console.log(inputState)
   }
   return (
     <ThemeProvider theme={theme}>
@@ -105,7 +106,7 @@ export interface TerminalProps {
   promptSymbol: string
   terminalId: string
   theme: Theme
-  inputStr: string
+  initInput: string
 }
 
 export default Terminal

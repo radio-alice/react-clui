@@ -3,8 +3,8 @@ import { storiesOf } from '@storybook/react'
 import Terminal from 'Terminal'
 
 storiesOf('Terminal', module).add('render terminal', () => (
-  <Terminal inputStr={'initial val'} />
+  <Terminal initInput={'initial val'} />
 ))
 storiesOf('Terminal', module).add('echo command', () => (
-  <Terminal inputStr={'echo "Bernie 2020"'} />
+  <Terminal initInput={'echo "Bernie 2020"'} />
 ))
