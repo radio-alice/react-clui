@@ -71,7 +71,17 @@ const Terminal = ({
       type: 'history',
       payload: { type: 'SUBMITTED_COMMAND', content: inputState.value }
     })
-    if (inputState.run) inputState.run()
+    if (inputState.run) {
+      inputState.run()
+    } else {
+      terminalDispatch({
+        type: 'history',
+        payload: {
+          type: 'TEXT_ERROR_OUTPUT',
+          content: `${inputState.value} is not a valid command`
+        }
+      })
+    }
     inputUpdate({ value: '' })
   }
   type historyDirection = 'previous' | 'next'
