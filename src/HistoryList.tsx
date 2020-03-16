@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { HistoryTypes, HistoryComponent, HistoryItem } from './types'
+import { HistoryItem } from './types'
 import historyRenderers from './history'
 
 const HistoryList = ({
