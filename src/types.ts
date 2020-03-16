@@ -9,7 +9,6 @@ export interface HistoryItem {
   content: string
 }
 export interface TerminalModel {
-  commands: any
   history: HistoryItem[]
   theme: Theme
 }

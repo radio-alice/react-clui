@@ -1,5 +1,5 @@
 import { useReducer, useCallback, useRef } from 'react'
-import createInput, { ICommand } from '@replit/clui-input'
+import createInput from '@replit/clui-input'
 
 const reducer = (state: any, action: any) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ const reducer = (state: any, action: any) => {
 }
 
 interface Options {
-  command?: ICommand
+  command?: any
   value?: string
   index?: number
 }
