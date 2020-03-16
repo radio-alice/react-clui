@@ -8,6 +8,7 @@ import TerminalContainer from './TerminalContainer'
 import useCluiInput from './useCluiInput'
 import { initCommands } from './Commands'
 import useTerminalHistory from './useTerminalHistory'
+
 const Terminal = ({
   inputStr = '',
   promptSymbol = '$',
@@ -47,29 +48,42 @@ const Terminal = ({
       printInvalidCommandError(inputState.value)
     }
     updateInput({ value: '' })
+    setHistoryIndex(0)
     scrollOutput()
   }
 
   type historyDirection = 'previous' | 'next'
   const adjacentCommand = (direction: historyDirection, index: number) => {
-    // TODO
+    switch (direction) {
+      case 'next':
+        for (let i = Math.max(index - 1, 0); i >= 0; i--) {
+          if (terminalState.history[i].type === 'SUBMITTED_COMMAND') {
+            setHistoryIndex(i)
+            return terminalState.history[i].content
+          }
+        }
+        setHistoryIndex(0)
+        return ''
+      case 'previous':
+        for (let i = index + 1; i < terminalState.history.length; i++) {
+          if (terminalState.history[i].type === 'SUBMITTED_COMMAND') {
+            setHistoryIndex(i)
+            return terminalState.history[i].content
+          }
+        }
+        break
+    }
   }
   function _onInputKeyDownEvent(e: React.KeyboardEvent) {
     switch (e.key) {
-      case 'ArrowUp':
-        e.preventDefault()
-        updateInput(adjacentCommand('previous', historyIndex))
-        setHistoryIndex(historyIndex + 2)
-        break
-
       case 'ArrowDown':
         e.preventDefault()
-        if (historyIndex > 0) {
-          updateInput(adjacentCommand('next', historyIndex))
-          setHistoryIndex(historyIndex - 2)
-        }
+        updateInput({ value: adjacentCommand('next', historyIndex) })
         break
-
+      case 'ArrowUp':
+        e.preventDefault()
+        updateInput({ value: adjacentCommand('previous', historyIndex) })
+        break
       case 'Tab':
         e.preventDefault()
         // replace below with useCluiInput hook
