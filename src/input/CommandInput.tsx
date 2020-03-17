@@ -2,13 +2,15 @@ import * as React from 'react'
 import StyledInput from './StyledInput'
 import StyledForm from './StyledForm'
 import PromptSymbol from '../PromptSymbol'
+import Options from './Options'
 
 const CommandInput = ({
   promptSymbol,
   value,
   onChange,
   onSubmit,
-  onKeyDown
+  onKeyDown,
+  options
 }: CommandInputProps) => {
   const inputRef = React.useRef(null)
   React.useEffect(() => {
@@ -26,16 +28,18 @@ const CommandInput = ({
         <PromptSymbol>{promptSymbol}</PromptSymbol>
         <StyledInput onChange={onChange} value={value} ref={inputRef} />
       </StyledForm>
+      <Options options={options} />
     </div>
   )
 }
 
-export interface CommandInputProps {
+interface CommandInputProps {
   onSubmit: SubmitHandler
   onChange: React.ChangeEventHandler<HTMLInputElement>
   onKeyDown: KeyDownHandler
   promptSymbol: string
   value: string
+  options: any
 }
 
 interface KeyDownHandler {

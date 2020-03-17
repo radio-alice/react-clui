@@ -94,6 +94,7 @@ const Terminal = ({
           onSubmit={_submitInput}
           onKeyDown={_onInputKeyDownEvent}
           onChange={e => onInputChange(e.currentTarget)}
+          options={inputState.options}
         />
       </TerminalContainer>
     </ThemeProvider>
