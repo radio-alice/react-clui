@@ -3,10 +3,10 @@ import { Action } from './types'
 export const initCommands = (dispatch: React.Dispatch<Action>) => ({
   commands: {
     echo: {
-      description: 'Prints whatever you give it',
+      description: 'ouputs the next word or quote',
       commands: (args: string) => ({
         [args]: {
-          description: `Prints ${args}`,
+          description: `prints ${args}`,
           run: () => {
             dispatch({
               type: 'history',

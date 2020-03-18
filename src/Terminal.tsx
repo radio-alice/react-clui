@@ -11,7 +11,7 @@ import useTerminalHistory from './useTerminalHistory'
 
 const Terminal = ({
   initInput = '',
-  promptSymbol = '$',
+  promptSymbol = '↝',
   terminalId = 'terminal01',
   theme = defaultTheme
 }: TerminalProps) => {
@@ -64,10 +64,16 @@ const Terminal = ({
         e.preventDefault()
         updateInput({ value: adjacentCommand('previous', historyIndex) })
         break
-      case 'Tab':
+      case 'Enter':
         e.preventDefault()
-        if (inputState.options[0])
+        if (
+          inputState.options[0] &&
+          inputState.options[0].value !== 'undefined'
+        ) {
           updateInput({ value: inputState.options[0].value + ' ' })
+        } else {
+          _submitInput()
+        }
         break
     }
   }
@@ -91,10 +97,10 @@ const Terminal = ({
         <CommandInput
           promptSymbol={promptSymbol}
           value={inputState.value}
-          onSubmit={_submitInput}
           onKeyDown={_onInputKeyDownEvent}
           onChange={e => onInputChange(e.currentTarget)}
           options={inputState.options}
+          cursorPosition={inputState.nodeStart}
         />
       </TerminalContainer>
     </ThemeProvider>

@@ -3,50 +3,49 @@ import StyledInput from './StyledInput'
 import StyledForm from './StyledForm'
 import PromptSymbol from '../PromptSymbol'
 import Options from './Options'
+import styled from 'styled-components'
 
 const CommandInput = ({
   promptSymbol,
   value,
   onChange,
-  onSubmit,
   onKeyDown,
-  options
+  options,
+  cursorPosition
 }: CommandInputProps) => {
+  console.log(cursorPosition)
   const inputRef = React.useRef(null)
   React.useEffect(() => {
     if (inputRef.current) inputRef.current.focus()
   }, [inputRef.current])
   return (
-    <div className={'terminalInput'}>
-      <StyledForm
-        onKeyDown={onKeyDown}
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-          e.preventDefault()
-          onSubmit(value)
-        }}
-      >
+    <div>
+      <StyledForm onKeyDown={onKeyDown}>
         <PromptSymbol>{promptSymbol}</PromptSymbol>
-        <StyledInput onChange={onChange} value={value} ref={inputRef} />
+        <InputContainer>
+          <StyledInput onChange={onChange} value={value} ref={inputRef} />
+          <Options options={options} cursorPosition={cursorPosition} />
+        </InputContainer>
       </StyledForm>
-      <Options options={options} />
     </div>
   )
 }
 
 interface CommandInputProps {
-  onSubmit: SubmitHandler
   onChange: React.ChangeEventHandler<HTMLInputElement>
   onKeyDown: KeyDownHandler
   promptSymbol: string
   value: string
   options: any
+  cursorPosition: number
 }
 
 interface KeyDownHandler {
   (e: React.KeyboardEvent): void
 }
 
-interface SubmitHandler {
-  (x: string): void
-}
+const InputContainer = styled.div`
+  position: relative;
+`
+
 export default CommandInput
